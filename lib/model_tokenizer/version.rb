@@ -1,0 +1,3 @@
+module ModelTokenizer
+  VERSION = "0.0.1"
+end
