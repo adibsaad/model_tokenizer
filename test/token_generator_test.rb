@@ -1,27 +1,42 @@
-require 'model_tokenizer'
+require "helper"
 
-DB.create_table :turtles do
-  primary_key :id
-  column :data, :string
-  column :token, :string
+class Car < ActiveRecord::Base
+  extend ModelTokenizer
+  has_token
 end
 
-class SomeModel < Sequel::Model(:turtles)
-  include Tokenizable
+class Truck < ActiveRecord::Base
+  extend ModelTokenizer
+  has_token :length => 16
 end
 
-class TokenGenerator < Test::Unit::TestCase
+class TokenGenerator < MiniTest::Test
+  include ModelTokenizer::Test
+
   def setup
-    Turtle.all.each(&:destroy)
+    Car.all.each(&:destroy)
+    Truck.all.each(&:destroy)
   end
 
-  def test_should_create_token
-    @turtle = Turtle.new :data => 'some data to insert'
-    assert @turtle.save
-    assert_not_nil @turtle.token
-  end
+  def test_that_tokens_are_created_for_models
+    with_instance_of(Car) do |record|
+      assert record.token, "Token is nil"
+      assert record.token.length == Car::model_tokenizer_token_length,
+      "Token length is not #{Car::model_tokenizer_token_length}"
+      
+      record.token.split("").each do |c|
+        assert ModelTokenizer::Base::CHARSET.include?(c), "#{c} doesn't belong in the acceptable character set"
+      end
+    end
 
-  def method_name
-    
+    with_instance_of(Truck) do |record|
+      assert record.token, "Token is nil"
+      assert record.token.length == Truck::model_tokenizer_token_length,
+      "Token length is not #{Truck::model_tokenizer_token_length}"
+      
+      record.token.split("").each do |c|
+        assert ModelTokenizer::Base::CHARSET.include?(c), "#{c} doesn't belong in the acceptable character set"
+      end
+    end
   end
 end

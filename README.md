@@ -1,6 +1,6 @@
 # ModelTokenizer
 
-TODO: Write a gem description
+Generates random tokens that models can be accessed by.
 
 ## Installation
 
@@ -20,7 +20,6 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
 
 ## Contributing
 
