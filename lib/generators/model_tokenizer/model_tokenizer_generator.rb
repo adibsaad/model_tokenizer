@@ -1,18 +1,26 @@
-require 'rails/generators/active_record'
-require 'generators/devise/orm_helpers'
+require 'rails/generators'
+require 'rails/generators/named_base'
+require 'rails/generators/migration'
+require "rails/generators/active_record"
 
-module ActiveRecord
+module ModelTokenizer
   module Generators
-    class ModelTokenizerGenerator < ActiveRecord::Generators::Base
-      argument :attributes, type: :array, default: [], banner: "field:type field:type"
+    class ModelTokenizerGenerator < Rails::Generators::NamedBase
+      include Rails::Generators::Migration
+      include Rails::Generators::ActiveRecord
+      include Rails::Generators::ResourceHelpers
 
       source_root File.expand_path("../templates", __FILE__)
 
-      def copy_model_tokenizer_migration
+      desc "Creates a model with the NAME argument. "\
+           "If the model already exists, the appropriate code will be appended instead. "\
+           "In either case, the appropriate migration will be created."
+
+      def create_migration_file
         if (behavior == :invoke && model_exists?) || (behavior == :revoke && migration_exists?(table_name))
           migration_template "migration_existing.rb", "db/migrate/add_model_tokenizer_token_to_#{table_name}.rb"
         else
-          migration_template "migration.rb", "db/migrate/devise_create_#{table_name}.rb"
+          migration_template "migration.rb", "db/migrate/model_tokenizer_create_#{table_name}.rb"
         end
       end
 
@@ -35,8 +43,10 @@ module ActiveRecord
         inject_into_class(model_path, class_path.last, content) if model_exists?
       end
 
+      private
+
       def migration_data
-<<RUBY
+<<-RUBY
       t.string :token, :null => false, :default => ""
 RUBY
       end
@@ -48,18 +58,20 @@ RUBY
 CONTENT
       end
 
-      private
-
       def model_exists?
         File.exists?(File.join(destination_root, model_path))
       end
 
-      def migration_exists?(table_name)
-        Dir.glob("#{File.join(destination_root, migration_path)}/[0-9]*_*.rb").grep(/\d+_add_devise_to_#{table_name}.rb$/).first
+      def migration_path
+        @migration_path ||= File.join("db", "migrate")
       end
 
       def model_path
         @model_path ||= File.join("app", "models", "#{file_path}.rb")
+      end
+
+      def migration_exists?(table_name)
+        Dir.glob("#{File.join(destination_root, migration_path)}/[0-9]*_*.rb").grep(/\d+_add_token_to_#{table_name}.rb$/).first
       end
     end
   end

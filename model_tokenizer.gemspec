@@ -9,10 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Adib Saad"]
   spec.email         = ["adib.saad@gmail.com"]
   spec.summary       = %q{Random token generator for ActiveRecord objects}
+  spec.description   = %q{Random token generator for ActiveRecord objects}
   spec.homepage      = "http://rubygems.org/gems/model_tokenizer"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = `git ls-files`.split("\n")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
