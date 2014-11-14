@@ -30,33 +30,25 @@ Or install it yourself as:
 
 ## Usage
 
-1. Run
+Run
 
-        $ rails g model_tokenizer MODEL_NAME [field:type field:type ... ]
+    $ rails g model_tokenizer MODEL_NAME [field:type field:type ... ]
 
-  to create a new tokenized model. If the model already exists, ModelTokenizer will integrate into it by injecting the following code
+to create a new tokenized model. If the model already exists, ModelTokenizer will integrate into it by injecting the following code
 
-  ```ruby
-    extend ModelTokenizer
-    has_token
-  ```
-
-  The appropriate migration will also be created, which will create the ```token``` field and its associated unique index.
-
-  The default token length is 14, but you can change it (no lower than 8)
-
-  ```ruby
-    has_token :length => 16
-  ```
-
-2. In the model file, make sure the following line is there:
-
-  ```ruby
+```ruby
+  extend ModelTokenizer
+  has_token
   self.primary_key = :token
-  ```
+```
 
-  The generator will automatically inject this, but if you're doing something weird that involves manually installing ModelTokenizer without using the generators, make sure the aforementioned line exists.
+The appropriate migration will also be created, which will create the ```token``` field and its associated unique index.
 
+The default token length is 14, but you can change it (no lower than 8)
+
+```ruby
+  has_token :length => 16
+```
 
 ## Notes
 
