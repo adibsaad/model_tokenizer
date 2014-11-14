@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Adib Saad"]
   spec.email         = ["adib.saad@gmail.com"]
   spec.summary       = %q{Random token generator for Rails models}
-  spec.homepage      = "http://rubygems.org/gems/model_tokenizer"
+  spec.homepage      = "https://github.com/adibsaad/model_tokenizer"
   spec.license       = "MIT"
   spec.description   = 
       %q{ModelTokenizer creates random tokens to be
