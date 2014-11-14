@@ -14,7 +14,6 @@ module ModelTokenizer
            "In either case, the appropriate migration will be created."
 
       def create_migration_file
-        return if migration_exists?(table_name) || create_migration_exists?(table_name)
         if (behavior == :invoke && model_exists?) || (behavior == :revoke && migration_exists?(table_name))
           migration_template "migration_existing.rb", "db/migrate/add_model_tokenizer_token_to_#{table_name}.rb"
         else
@@ -67,10 +66,6 @@ CONTENT
 
       def model_path
         @model_path ||= File.join("app", "models", "#{file_path}.rb")
-      end
-
-      def create_migration_exists?(table_name)
-        Dir.glob("#{File.join(destination_root, migration_path)}/[0-9]*_*.rb").grep(/\d+_model_tokenizer_create_#{table_name}.rb$/).first
       end
 
       def migration_exists?(table_name)

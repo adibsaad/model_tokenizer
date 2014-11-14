@@ -49,15 +49,7 @@ Or install it yourself as:
     has_token :length => 16
   ```
 
-2. In your ```routes.rb``` file, if you're using ```resource```/```resources``` to create routes for your model, make sure ```:token``` is used as the lookup param
-
-  ```ruby
-  resources :videos, :param => :token
-  ```
-
-  otherwise, change ```:id``` to ```:token``` where necessary.
-
-3. In the model file, make sure the following line is there:
+2. In the model file, make sure the following line is there:
 
   ```ruby
   self.primary_key = :token
@@ -83,8 +75,10 @@ As you may have noticed, the following ambiguous characters have been removed
 * Uppercase: I, O, Q, U, V
 * Numerals:  1, 0
 
-Currently, ModelTokenizer doesn't detect whether or not it has run out of combinations for 
+However, the gem doesn't check for awkward tokens that could be confusing, has too many repeating characters, too many underscores/hyphens or otherwise makes someone raise an eyebrow (e.g. DXMHMHLALAH, _-aj-a2j6f-qacins-). Additionally, ModelTokenizer doesn't detect whether or not it has run out of combinations for 
 generating new tokens, though this will be dealt with in the future.
+
+ModelTokenizer has been tested with Rails 3 and 4.
 
 ## Contributing
 
