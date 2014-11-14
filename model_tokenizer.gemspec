@@ -8,10 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = ModelTokenizer::VERSION
   spec.authors       = ["Adib Saad"]
   spec.email         = ["adib.saad@gmail.com"]
-  spec.summary       = %q{Random token generator for ActiveRecord objects}
-  spec.description   = %q{Random token generator for ActiveRecord objects}
+  spec.summary       = %q{Random token generator for Rails models}
   spec.homepage      = "http://rubygems.org/gems/model_tokenizer"
   spec.license       = "MIT"
+  spec.description   = 
+      %q{ModelTokenizer creates random tokens to be
+        used as primary keys for ActiveRecord objects}
 
   spec.files         = `git ls-files`.split("\n")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -20,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "activerecord", "~> 4.0.0"
+  spec.add_development_dependency "activerecord", "~> 4.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "minitest"
 end
