@@ -52,7 +52,8 @@ RUBY
       def model_contents
         <<-CONTENT
   extend ModelTokenizer
-  has_token
+  has_token #:length => 14
+  self.primary_key = :token
 CONTENT
       end
 
