@@ -1,8 +1,6 @@
 require "bundler/setup"
-# if ENV['COVERAGE']
-#   require 'coveralls'
-#   Coveralls.wear!
-# end
+require 'coveralls'
+Coveralls.wear!
 
 require "active_record"
 
