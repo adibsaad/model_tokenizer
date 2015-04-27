@@ -1,5 +1,7 @@
 # ModelTokenizer
 
+[![Build Status](https://travis-ci.org/adibsaad/model_tokenizer.svg?branch=master)](https://travis-ci.org/adibsaad/model_tokenizer)
+
 Generates random tokens that models can be accessed by. Instead of
 
 ```
